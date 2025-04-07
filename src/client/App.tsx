@@ -1,8 +1,15 @@
+import { NavBar } from "./components/NavBar";
+import { Button } from "./components/ui/button";
+
 function App() {
   return (
     <>
-      <nav className="border-b-2 px-4 py-2">Nav Bar</nav>
-      <main>Main stuff</main>
+      <NavBar>
+        Mode selection:
+        <Button>Local</Button>
+        <Button>Online</Button>
+      </NavBar>
+      <main className="p-4">Main stuff</main>
     </>
   );
 }
