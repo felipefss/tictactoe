@@ -1,22 +1,27 @@
 import { useState } from "react";
-import { NavBar } from "./components/NavBar";
-import { Button } from "./components/ui/button";
+import { NavBar } from "../components/NavBar";
+import { Button } from "../components/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./components/ui/card";
-import { Input } from "./components/ui/input";
-import { Label } from "./components/ui/label";
+} from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { createFileRoute } from "@tanstack/react-router";
 
 enum GameMode {
   Local = "LOCAL",
   Online = "ONLINE",
 }
 
-function App() {
+export const Route = createFileRoute("/")({
+  component: Index,
+});
+
+function Index() {
   const [mode, setMode] = useState<GameMode>(GameMode.Local);
 
   return (
@@ -83,4 +88,4 @@ function App() {
   );
 }
 
-export default App;
+export default Index;
