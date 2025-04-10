@@ -9,15 +9,25 @@ type GameContextProviderProps = {
 };
 
 export const GameProvider = ({ children }: GameContextProviderProps) => {
-  const [player1Name, setPlayer1] = useState<string>("");
-  const [player2Name, setPlayer2] = useState<string>("");
+  const [player1, setPlayer1] = useState<string>("");
+  const [player2, setPlayer2] = useState<string>("");
   const [score, setScore] = useState<number[]>([0, 0]);
 
   const navigate = useNavigate();
+  const players = [
+    {
+      name: player1,
+      score: score[0],
+    },
+    {
+      name: player2,
+      score: score[1],
+    },
+  ];
 
-  const startLocalGame = (player1: string, player2: string) => {
-    setPlayer1(player1);
-    setPlayer2(player2);
+  const startLocalGame = (player1Name: string, player2Name: string) => {
+    setPlayer1(player1Name);
+    setPlayer2(player2Name);
 
     const gameId = uuid();
     navigate({
@@ -31,6 +41,7 @@ export const GameProvider = ({ children }: GameContextProviderProps) => {
   return (
     <GameContext.Provider
       value={{
+        players,
         startLocalGame,
       }}
     >
