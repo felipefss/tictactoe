@@ -1,4 +1,8 @@
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+
+import { useGameContext } from "@/hooks/useGameContext";
+
 import { NavBar } from "../components/NavBar";
 import { Button } from "../components/ui/button";
 import {
@@ -10,7 +14,8 @@ import {
 } from "../components/ui/card";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import { createFileRoute } from "@tanstack/react-router";
+
+const IS_ONLINE_ENABLED = false;
 
 enum GameMode {
   Local = "LOCAL",
@@ -23,6 +28,14 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const [mode, setMode] = useState<GameMode>(GameMode.Local);
+  const [player1, setPlayer1] = useState<string>("Player 1");
+  const [player2, setPlayer2] = useState<string>("Player 2");
+
+  const { startLocalGame } = useGameContext();
+
+  const handleStartGame = () => {
+    startLocalGame(player1, player2);
+  };
 
   return (
     <>
@@ -37,6 +50,7 @@ function Index() {
           Local
         </Button>
         <Button
+          disabled={!IS_ONLINE_ENABLED}
           variant={mode === GameMode.Online ? "default" : "outline"}
           onClick={() => {
             setMode(GameMode.Online);
@@ -59,13 +73,23 @@ function Index() {
                   <Label htmlFor="player1">
                     Player {mode === GameMode.Local ? "1" : "name"}
                   </Label>
-                  <Input id="player1" placeholder="e.g: Jane Doe" />
+                  <Input
+                    id="player1"
+                    placeholder="e.g: Jane Doe"
+                    value={player1}
+                    onChange={(e) => setPlayer1(e.target.value)}
+                  />
                 </div>
 
                 {mode === GameMode.Local && (
                   <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="player2">Player 2</Label>
-                    <Input id="player2" placeholder="e.g: John Doe" />
+                    <Input
+                      id="player2"
+                      placeholder="e.g: John Doe"
+                      value={player2}
+                      onChange={(e) => setPlayer2(e.target.value)}
+                    />
                   </div>
                 )}
               </div>
@@ -73,7 +97,9 @@ function Index() {
           </CardContent>
 
           <CardFooter>
-            {mode === GameMode.Local && <Button>Start game</Button>}
+            {mode === GameMode.Local && (
+              <Button onClick={handleStartGame}>Start game</Button>
+            )}
 
             {mode === GameMode.Online && (
               <div className="flex w-full justify-between">
