@@ -16,8 +16,6 @@ export const Board = () => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [gameOverText, setGameOverText] = useState('');
 
-  console.log(board);
-
   const { players, increaseScore } = useGameContext();
 
   const currentPlayer = players[currentTurn];
