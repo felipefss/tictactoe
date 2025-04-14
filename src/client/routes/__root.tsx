@@ -1,6 +1,6 @@
-import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { createRootRoute, Outlet } from '@tanstack/react-router';
 
-import { GameProvider } from "@/context/GameProvider";
+import { GameProvider } from '@/context/GameProvider';
 
 export const Route = createRootRoute({
   component: RootComponent,

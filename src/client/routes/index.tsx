@@ -1,35 +1,29 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute } from '@tanstack/react-router';
+import { useState } from 'react';
 
-import { useGameContext } from "@/hooks/useGameContext";
+import { GameMode, IS_ONLINE_ENABLED } from '@/constants';
+import { useGameContext } from '@/hooks/useGameContext';
 
-import { NavBar } from "../components/NavBar";
-import { Button } from "../components/ui/button";
+import { NavBar } from '../components/NavBar';
+import { Button } from '../components/ui/button';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
-import { Input } from "../components/ui/input";
-import { Label } from "../components/ui/label";
+} from '../components/ui/card';
+import { Input } from '../components/ui/input';
+import { Label } from '../components/ui/label';
 
-const IS_ONLINE_ENABLED = false;
-
-enum GameMode {
-  Local = "LOCAL",
-  Online = "ONLINE",
-}
-
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute('/')({
   component: Index,
 });
 
 function Index() {
   const [mode, setMode] = useState<GameMode>(GameMode.Local);
-  const [player1, setPlayer1] = useState<string>("Player 1");
-  const [player2, setPlayer2] = useState<string>("Player 2");
+  const [player1, setPlayer1] = useState<string>('Player 1');
+  const [player2, setPlayer2] = useState<string>('Player 2');
 
   const { startLocalGame } = useGameContext();
 
@@ -42,7 +36,7 @@ function Index() {
       <NavBar>
         Mode selection:
         <Button
-          variant={mode === GameMode.Local ? "default" : "outline"}
+          variant={mode === GameMode.Local ? 'default' : 'outline'}
           onClick={() => {
             setMode(GameMode.Local);
           }}
@@ -51,7 +45,7 @@ function Index() {
         </Button>
         <Button
           disabled={!IS_ONLINE_ENABLED}
-          variant={mode === GameMode.Online ? "default" : "outline"}
+          variant={mode === GameMode.Online ? 'default' : 'outline'}
           onClick={() => {
             setMode(GameMode.Online);
           }}
@@ -71,7 +65,7 @@ function Index() {
               <div className="grid w-full items-center gap-4">
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="player1">
-                    Player {mode === GameMode.Local ? "1" : "name"}
+                    Player {mode === GameMode.Local ? '1' : 'name'}
                   </Label>
                   <Input
                     id="player1"
